@@ -1,0 +1,47 @@
+
+library(quantmod)
+options(digits=4,scipen = 0)
+
+setwd("C:/Users/HANNAH_SOPHIE/Desktop/MISCELANEOUS/MISCELANEOUS/momentum_strategy")
+
+#https://www.fidelity.com/etfs/different-types-of-etfs
+
+etf_e_symbols<-c( 
+  "SPY",#SPDR S&P 500 ETF
+  "XLE",#SPDR Tech Sector ETF
+  "FENY",#Fidelity MSCI IT ETF
+  "VDE" #Vanguard IT ETF
+)
+
+
+# The prices object will hold our raw price data throughout this book.
+levels <- list()
+getSymbols(etf_e_symbols, 
+           #src = 'yahoo', 
+           from = '2015-01-01')
+for(i in 1:length(etf_e_symbols)) {
+  prices <- Ad(get(etf_e_symbols[i]))
+  colnames(prices) <- etf_e_symbols[i]
+  levels[[i]] <- prices
+}
+
+prices<-na.omit(do.call(cbind, levels))
+
+rm(list=setdiff(ls(), "prices"))
+
+
+#normalize <- function(x) {return ((x - min(x)) / (max(x) - min(x))) }
+#prices_norm<-as.xts(apply(prices,2,normalize))
+
+indexized<- function(x){x/head(x,1)}
+prices_ind_energy<-as.xts(apply(prices,2,indexized))
+
+plot.xts(prices_norm,
+         legend.loc="top",
+         col=2:5,
+         main="ENERGY")
+
+
+autoplot.zoo(prices_ind_energy,facets = NULL,main="ENERGY ETFs")
+
+
