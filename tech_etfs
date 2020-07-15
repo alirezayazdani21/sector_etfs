@@ -2,10 +2,6 @@
 library(quantmod)
 options(digits=4,scipen = 0)
 
-setwd("C:/Users/HANNAH_SOPHIE/Desktop/MISCELANEOUS/MISCELANEOUS/momentum_strategy")
-
-#https://www.fidelity.com/etfs/different-types-of-etfs
-
 etf_symbols<-c( 
            "SPY",#SPDR S&P 500 ETF
            "XLK",#SPDR Tech Sector ETF
