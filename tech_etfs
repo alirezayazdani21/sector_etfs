@@ -10,7 +10,6 @@ etf_symbols<-c(
 )
 
 
-# The prices object will hold our raw price data throughout this book.
 levels <- list()
 getSymbols(etf_symbols, 
            #src = 'yahoo', 
